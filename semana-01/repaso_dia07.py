@@ -14,6 +14,7 @@ print("Sesiones previstas: ", sesiones)
 
 sesion_actual = 1
 total_minutos = 0
+sesiones_completas = 0
 
 while sesion_actual <= sesiones:
 	print("Sesion", sesion_actual)
@@ -26,8 +27,14 @@ while sesion_actual <= sesiones:
 			if minutos <= 0:
 				print("Los minutos deben ser numeros positivos, prueba de nuevo")
 			else:
+				if minutos >= 30:
+					sesiones_completas = sesiones_completas + 1
 				total_minutos = total_minutos + minutos
 				sesion_actual = sesion_actual + 1
 				break
-print("Minutos totales:", total_minutos)
+
+media_minutos = total_minutos / sesiones
+print("Duración media:", media_minutos, "minutos")
+print("Tiempo total:", total_minutos, "minutos")
+print("Sesiones completadas:", sesiones_completas, "sesiones")
 print("Plan terminado")
