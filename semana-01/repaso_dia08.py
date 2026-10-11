@@ -71,18 +71,7 @@ def pedir_numero(mensaje):
                 print("Introduce un numero positivo")
 
 
-def main():
-    try:
-        sesiones = cargar_sesiones()
-    except ValueError as error:
-        print(f"Error en {ARCHIVO_SESIONES}: {error}")
-        print("El programa termina sin modificar el historial.")
-        raise SystemExit(1)
-    except OSError as error:
-        print(f"No se pudo leer {ARCHIVO_SESIONES}: {error}")
-        print("El programa termina sin modificar el historial.")
-        raise SystemExit(1)
-
+def registrar_sesiones(sesiones):
     cantidad_sesiones = pedir_numero("¿Cuantas sesiones de estudio vas a realizar?")
     sesion_actual = 1
 
@@ -95,13 +84,16 @@ def main():
 
         minutos = pedir_numero("¿Cuantos minutos estudiaste en la sesion?")
         sesiones.append({"asignatura": asignatura, "minutos": minutos})
-        try:
-            guardar_sesiones(sesiones)
-        except OSError as error:
-            print(f"No se pudo guardar la nueva sesión en {ARCHIVO_SESIONES}: {error}")
-            raise SystemExit(1)
+        guardar_sesiones(sesiones)
 
         sesion_actual = sesion_actual + 1
+
+
+def mostrar_resumen(sesiones):
+    if not sesiones:
+        print("No hay sesiones")
+        print("El total de minutos estudiados es de:", 0)
+        return
 
     sesiones_cortas = 0
     duraciones = []
@@ -132,6 +124,39 @@ def main():
 
     print("Sesion mas larga:", max(duraciones), "minutos")
     print("Sesion mas corta:", min(duraciones), "minutos")
+
+
+def main():
+    try:
+        sesiones = cargar_sesiones()
+    except ValueError as error:
+        print(f"Error en {ARCHIVO_SESIONES}: {error}")
+        print("El programa termina sin modificar el historial.")
+        raise SystemExit(1)
+    except OSError as error:
+        print(f"No se pudo leer {ARCHIVO_SESIONES}: {error}")
+        print("El programa termina sin modificar el historial.")
+        raise SystemExit(1)
+
+    while True:
+        print("\n1. Registrar sesiones.")
+        print("2. Consultar historial y resumen.")
+        print("3. Salir.")
+        opcion = input("Elige una opción: ").strip()
+
+        if opcion == "1":
+            try:
+                registrar_sesiones(sesiones)
+            except OSError as error:
+                print(f"No se pudo guardar la nueva sesión en {ARCHIVO_SESIONES}: {error}")
+                raise SystemExit(1)
+            mostrar_resumen(sesiones)
+        elif opcion == "2":
+            mostrar_resumen(sesiones)
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida. Elige 1, 2 o 3.")
 
 
 if __name__ == "__main__":
