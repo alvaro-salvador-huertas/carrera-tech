@@ -62,14 +62,14 @@ este ejercicio todavía no los guarda en un archivo.
 python3 semana-01/repaso_dia07.py
 ```
 
-repaso_dia08.py -- Registro de estudio con historial guardado en JSON, un formato
+registro_estudio.py -- Registro de estudio con historial guardado en JSON, un formato
 de texto que permite conservar datos entre ejecuciones. Usa únicamente la biblioteca
 estándar de Python, sin instalar dependencias.
 
 Para ejecutarlo desde la carpeta `carrera-tech`:
 
 ```bash
-python3 semana-01/repaso_dia08.py
+python3 semana-01/registro_estudio.py
 ```
 
 El menú se repite hasta elegir salir:
@@ -111,7 +111,7 @@ reemplazo fallan, el programa informa del error y termina; el historial anterior
 se conserva. El programa carga los datos al iniciar: conviene usar una sola
 instancia a la vez para evitar que dos programas sobrescriban cambios entre sí.
 
-Las pruebas están en `tests/test_repaso_dia08.py` y usan `unittest`, incluido en
+Las pruebas están en `tests/test_registro_estudio.py` y usan `unittest`, incluido en
 Python. Trabajan en carpetas temporales y sustituyen la ruta del JSON durante
 cada prueba, por lo que no leen ni modifican tu historial.
 
