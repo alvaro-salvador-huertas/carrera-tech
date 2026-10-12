@@ -11,8 +11,8 @@ import unittest
 from unittest.mock import patch
 
 
-RUTA_SCRIPT = Path(__file__).resolve().parents[1] / "semana-01" / "repaso_dia08.py"
-ESPECIFICACION = importlib.util.spec_from_file_location("repaso_dia08", RUTA_SCRIPT)
+RUTA_SCRIPT = Path(__file__).resolve().parents[1] / "semana-01" / "registro_estudio.py"
+ESPECIFICACION = importlib.util.spec_from_file_location("registro_estudio", RUTA_SCRIPT)
 registro = importlib.util.module_from_spec(ESPECIFICACION)
 ESPECIFICACION.loader.exec_module(registro)
 
