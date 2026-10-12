@@ -57,6 +57,37 @@ class PruebasRegistro(unittest.TestCase):
     def comprobar_sin_temporales(self):
         self.assertEqual(list(self.carpeta.glob(".sesiones-*.tmp")), [])
 
+    def test_calcular_totales_por_asignatura_acumula_sesiones(self):
+        sesiones = [
+            {"asignatura": "Python", "minutos": 20},
+            {"asignatura": "Redes", "minutos": 30},
+            {"asignatura": "Python", "minutos": 15},
+        ]
+        self.assertEqual(
+            registro.calcular_totales_por_asignatura(sesiones),
+            {"Python": 35, "Redes": 30},
+        )
+
+    def test_calcular_totales_por_asignatura_sin_sesiones(self):
+        self.assertEqual(registro.calcular_totales_por_asignatura([]), {})
+
+    def test_mostrar_resumen_incluye_un_total_por_asignatura(self):
+        sesiones = [
+            {"asignatura": "Python", "minutos": 20},
+            {"asignatura": "Redes", "minutos": 30},
+            {"asignatura": "Python", "minutos": 15},
+        ]
+        salida = io.StringIO()
+        with contextlib.redirect_stdout(salida):
+            registro.mostrar_resumen(sesiones)
+        lineas = salida.getvalue().splitlines()
+        self.assertEqual(lineas.count("Minutos por asignatura:"), 1)
+        inicio_totales = lineas.index("Minutos por asignatura:") + 1
+        self.assertCountEqual(
+            lineas[inicio_totales:],
+            ["Python : 35 minutos", "Redes : 30 minutos"],
+        )
+
     def test_cargar_sin_archivo(self):
         self.assertEqual(registro.cargar_sesiones(), [])
         self.assertFalse(self.archivo.exists())
