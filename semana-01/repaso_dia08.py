@@ -90,6 +90,7 @@ def registrar_sesiones(sesiones):
 
 
 def mostrar_resumen(sesiones):
+    print("Sesiones registradas:", len(sesiones))
     if not sesiones:
         print("No hay sesiones")
         print("El total de minutos estudiados es de:", 0)
