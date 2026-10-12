@@ -81,9 +81,16 @@ El menú se repite hasta elegir salir:
 2. **Consultar historial y resumen.** Muestra las asignaturas, los minutos y si cada
    sesión es corta (menos de 30 minutos) o completa (30 minutos o más). Incluye el
    total, las duraciones, la media, el número de sesiones cortas y completas, y las
-   duraciones máxima y mínima. No modifica el archivo. Si el historial está vacío,
-   muestra `No hay sesiones` y total 0, sin calcular media, mínimo ni máximo.
+   duraciones máxima y mínima. También agrupa los minutos por asignatura y muestra
+   una sola entrada por asignatura con su total. No modifica el archivo. Si el
+   historial está vacío, muestra `No hay sesiones` y total 0, sin calcular media,
+   mínimo ni máximo.
 3. **Salir.** Termina el programa. Una opción inválida vuelve a pedir la opción.
+
+Para agrupar los minutos, los nombres se comparan exactamente, distinguiendo
+mayúsculas y minúsculas: `Python` y `python` son asignaturas diferentes. Por
+ejemplo, las sesiones de Python de 20 y 15 minutos y la de Redes de 30 minutos
+producen los totales `Python: 35 minutos` y `Redes: 30 minutos`.
 
 El historial se guarda en `semana-01/sesiones.json`, siempre junto al script,
 independientemente de la carpeta desde la que se ejecute. Contiene una lista de

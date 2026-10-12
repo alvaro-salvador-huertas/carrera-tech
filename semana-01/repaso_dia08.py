@@ -88,6 +88,17 @@ def registrar_sesiones(sesiones):
 
         sesion_actual = sesion_actual + 1
 
+def calcular_totales_por_asignatura(sesiones):
+    totales = {}
+
+    for sesion in sesiones:
+        asignatura = sesion["asignatura"]
+        minutos = sesion["minutos"]
+
+        acumulado = totales.get(asignatura, 0)
+        totales[asignatura] = acumulado + minutos
+
+    return totales
 
 def mostrar_resumen(sesiones):
     print("Sesiones registradas:", len(sesiones))
@@ -125,6 +136,12 @@ def mostrar_resumen(sesiones):
 
     print("Sesion mas larga:", max(duraciones), "minutos")
     print("Sesion mas corta:", min(duraciones), "minutos")
+
+    print("Minutos por asignatura:")
+    totales = calcular_totales_por_asignatura(sesiones)
+
+    for asignatura, minutos in totales.items():
+        print(asignatura, ":", minutos, "minutos")
 
 
 def main():
